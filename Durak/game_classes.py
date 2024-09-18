@@ -15,11 +15,8 @@ class Deck:
         self.cards = cards
 
     def __str__(self) -> str:
-        return_string = ''
-        for card in self.cards:
-            return_string += str(card) + ', '
-
-        return return_string[:-2]
+        cards = [str(self.cards[n]) for n in range(len(self.cards))]
+        return ", ".join(cards)
 
     def shuffle(self) -> None:
         random.shuffle(self.cards)
@@ -28,8 +25,5 @@ class Deck:
         return self.cards.pop(0)
     
     def deal_hand(self, hand_size: int) -> list:
-        hand = []
-        for i in range(hand_size):
-            hand.append(self.cards.pop(0))
-        
+        hand = [self.cards.pop(0) for i in range(hand_size)]        
         return hand

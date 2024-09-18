@@ -1,19 +1,16 @@
 from game_classes import Card, Deck
 
 def main():
-
-    card_list = []
+    
     suits = ["Hearts", "Spades", "Diamonds", "Clubs"]
     values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
 
     #create 52 cards and adds them to the card_list
-    for suit in suits:
-        for value in values:
-            card = Card(suit, value)
-            card_list.append(card)
+    card_list = [Card(suit, value) for suit in suits for value in values]
 
     #initialise deck with the 52 cards
     deck = Deck(card_list)
+    print(deck)
 
     #shuffle the deck
     deck.shuffle()
