@@ -1,15 +1,9 @@
-from game_classes import Card, Deck
+from game_classes import Deck
 
 def main():
     
-    suits = ["Hearts", "Spades", "Diamonds", "Clubs"]
-    values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
-
-    #create 52 cards and adds them to the card_list
-    card_list = [Card(suit, value) for suit in suits for value in values]
-
-    #initialise deck with the 52 cards
-    deck = Deck(card_list)
+    #initialise deck with the 52 cards optionally add any number of jokers
+    deck = Deck(jokers=2)
     print(deck)
 
     #shuffle the deck
