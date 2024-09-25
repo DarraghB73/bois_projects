@@ -3,7 +3,7 @@ from game_classes import Deck
 def main():
     
     #initialise deck with the 52 cards optionally add any number of jokers
-    deck = Deck(jokers=2)
+    deck = Deck(jokers=50)
     print(deck)
 
     #shuffle the deck
@@ -15,5 +15,7 @@ def main():
     #print out the hand
     for card in hand:
         print(card)
+
+    print(len(deck))
 
 main()

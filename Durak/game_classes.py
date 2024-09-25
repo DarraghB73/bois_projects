@@ -5,12 +5,17 @@ class Card:
     def __init__(self, suit: str, value: str) -> None:
         self.suit = suit
         self.value = value
+        self.is_trump = False
 
     def __str__(self) -> str:
         if self.value == "Joker":
             return "Joker"
         else:
             return f"{self.value} of {self.suit}"
+        
+    def set_trump(self, suit):
+        if self.suit == suit:
+            self.is_trump = True
     
 #Class for a deck of cards
 class Deck:
@@ -29,6 +34,9 @@ class Deck:
     def __str__(self) -> str:
         cards = [str(self.cards[n]) for n in range(len(self.cards))]
         return ", ".join(cards)
+    
+    def __len__(self) -> int:
+        return len(self.cards)
 
     def shuffle(self) -> None:
         random.shuffle(self.cards)
