@@ -51,7 +51,7 @@ class Deck:
         #if jokers are requested, add the quantity requested
         if jokers != 0:
             for i in range(jokers):
-                self.cards.append(Card("Joker", "Joker"))
+                self.cards.append(Card("Joker", "Joker", 15))
 
     def __str__(self) -> str:
         cards = [str(self.cards[n]) for n in range(len(self.cards))]
@@ -69,9 +69,67 @@ class Deck:
     def deal_hand(self, hand_size: int) -> list:
         hand = [self.cards.pop(0) for i in range(hand_size)]        
         return hand
-    
-class GameField:
-    pass
 
 class Player:
-    pass
+    def __init__(self, name: str):
+        self.name = name
+        self.hand = []
+
+    def __str__(self):
+        return self.name
+    
+    def deal_hand(self, hand: list):
+        self.hand = hand
+
+class Challenge:
+    def __init__(self, offense: Card, attacker: Player):
+        self.offense = offense
+        self.attacker = attacker
+        self.defended = 0
+
+    def __str__(self):
+        string = f"{str(self.attacker)} attacks with {str(self.offense)}"
+        if(self.defended == 1):
+            string += f"; defended with {str(self.defense)}"
+        return string
+
+    def defend(self, defense: Card):
+        if(defense > self.offense):
+            self.defense = defense
+            self.defended = 0
+            return 1
+        else:
+            return 0
+    
+class GameField:
+    def __init__(self, deck: Deck, players: list):
+        self.deck = deck
+        self.players = players
+        self.challenges = []
+        self.open_attack = 0
+
+    def set_defender(self, defender: Player):
+        self.defender = defender
+
+    def attack(self, card: Card, attacker: Player):
+        if(card.value == "Joker"):
+            return 0
+        
+        can_play = 0
+        if(len(self.challenges) == 0):
+            can_play = 1
+        else:
+            for n in self.challenges:
+                if n.offense.value == card.value:
+                    can_play = 1
+                if n.defended == 1:
+                    if n.defense.value == card.value:
+                        can_play == 1
+                    if n.defense.value == "Joker":
+                        can_play == 0
+                        break
+
+        if(can_play == 1):
+            challenge = Challenge(card, attacker)
+            self.challenges.append(challenge)
+            self.open_attack = 1
